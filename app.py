@@ -7,7 +7,7 @@ import flask, random
 
 dictionary = 'words.txt'
 
-def rpl(old new filename):
+def rpl(old, new, filename):
     """Replicate the functionality of the `rpl` command/package in Debian bookworm"""
     with open(filename, 'r') as f:
         data = f.read()
