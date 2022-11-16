@@ -1,15 +1,29 @@
 #!/usr/bin/python3
 # Dependencies:
-# apt install python3-flask ibritish-large
+# sudo apt install python3-flask ibritish-large
+# ./generate-word-list.sh
 
 import flask, random
 
-app = flask.Flask(__name__)
+dictionary = 'words.txt'
 
-dict_path = "/usr/share/dict/british-english-huge"
-words = [line.strip() for line in open(dict_path, 'r')]
+def rpl(old new filename):
+    """Replicate the functionality of the `rpl` command/package in Debian bookworm"""
+    with open(filename, 'r') as f:
+        data = f.read()
+    with open(filename, 'w') as f:
+        f.write(data.replace(old, new))
+
+def word():
+    """Choose random word, scratch it off the list, return the choice"""
+    words = [line.strip() for line in open(dictionary, 'r') if '!' not in line]
+    choice = words[random.randint(0,len(words))]
+    rpl(choice, '!' + choice, dictionary)
+    return choice
+
+app = flask.Flask(__name__)
 
 @app.route("/")
 def index():
-    return f"<h1>Congratulations!</h1><p>You found the website for the Digital Practices Data Security exercise!</p><p>Your IP address is {flask.request.remote_addr} and your special word is \"{random.choice(words)} {random.randint(0,1000)}\".</p><p>Please submit these to the 'hidden service' Canvas exercise.</p><p>Have a a nice day,</p><p><i>Your teachers Lonneke & Maxigas</i></p>"
+    return f"<h1>Congratulations!</h1><p>You found the website for the Digital Practices Data Security exercise!</p><p>Your IP address is {flask.request.remote_addr} and your special word is \"{word()}\".</p><p>Please submit these to the 'hidden service' Canvas exercise.</p><p>Have a nice day,</p><p><i>Your teachers Lonneke & Maxigas</i></p>"
 
