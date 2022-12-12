@@ -25,5 +25,5 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def index():
-    return f"<h1>Congratulations!</h1><p>You found the website for the Digital Practices Data Security exercise!</p><p>Your IP address is {flask.request.remote_addr} and your special word is \"{word()}\".</p><p>Please submit these to the 'hidden service' Canvas exercise.</p><p>Have a nice day,</p><p><i>Your teachers Lonneke & Maxigas</i></p>"
+    return f"<h1>Congratulations!</h1><p>You found the website for the Digital Practices Data Security exercise!</p><p>Your special word is \"{word()}\".</p><p>Please fill in the word to field 1.b on the Answer Form for Assignment 6 on Data Ethics.</p><p>Have a nice day,</p><p><i>Your teachers Lonneke & Maxigas</i></p>"
 
